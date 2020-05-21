@@ -1,0 +1,26 @@
+## download pdb files (credit pdb)
+
+rsync -rlpt -v -z --delete --port=33444 \
+rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
+
+## unzip files
+
+for dir in ./*/; do gunzip "$dir"/*; done
+
+## find structures of human proteins
+
+for dir in ./*/; do grep -l "HOMO SAPIENS" "$dir"*;done >> human-list.txt
+
+## search within human pdb list for ss bonds
+
+cat human-list.txt | while read line; do grep -w "SSBOND" "$line"; done >> ss-human.txt
+
+cat human-list.txt | while read line; do grep -w "HEADER" "$line"; done >> ss-human-header.txt
+
+## run SAS calc on files in ss-human.txt
+
+cat ss-human.txt | while read line; do mkdssp -i "$line" -o "$line".dssp; done
+
+## extract average SAS values for ss bonds
+
+cat human-w-ss.txt | while read line; do ss-acc.py -i "$line".dssp; done > values.txt
