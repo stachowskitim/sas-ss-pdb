@@ -3,4 +3,4 @@ PDB crawl of the solvent exposed area of disulfides in crystal structures of hum
 
 Output:
 
-![alt text](https://github.com/stachowskitim/sas-ss-pdb/files/4664649/sas-disulfides-proteins-pdb.pdf)
+![alt text](https://user-images.github.com/stachowskitim/sas-ss-pdb/files/4664649/sas-disulfides-proteins-pdb.pdf)
